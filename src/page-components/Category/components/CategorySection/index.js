@@ -4,21 +4,37 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import spacing from 'src/styling/spacing';
-
+import SortButton from 'shared-components/SortButton'
+import { useRouter } from 'next/router'
 import CategoryShows from '../CategoryShows';
 
 const StyledCategoryContainer = styled(Flex)`
   position: relative;
 `;
 
-const CategorySection = ({ shows, name, description }) => (
-  <StyledCategoryContainer flexDirection="column">
+const CategorySection = ({ shows, name, description, slug }) => {
+  const router = useRouter()
+   const onSelect = (order) => {
+    router.push(`/category/${slug}?order=${order}`)
+  }
+
+  return <StyledCategoryContainer flexDirection="column">
     <Box px={[spacing.m, 0, 0]}>
       <Header as="h1" variant="xl" text={name} linesToShow={1} mb="m" />
     </Box>
+    <div style={{
+        position: "absolute",
+        right: 0
+      }}>
+      <SortButton 
+        options={[{key: 'asc', value: 'A-Z'}, {key: 'desc', value: 'Z-A'}]} 
+        side="left"
+        onOptionClick={onSelect}
+        ></SortButton>
+     </div>
     <CategoryShows shows={shows} description={description} />
   </StyledCategoryContainer>
-);
+};
 
 CategorySection.propTypes = {
   name: PropTypes.string,

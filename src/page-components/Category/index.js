@@ -13,6 +13,8 @@ import { LISTNR_META } from 'utilities/constants';
 import { getCategories } from 'integration/graphql/categories/query-methods';
 import CategoriesContainer from './components/CategorySection';
 import useRouterServer from '../../hooks/useRouterServer';
+import Link from 'next/link';
+
 
 const StyledContainer = styled(Container)`
   padding: 0;
@@ -22,7 +24,7 @@ const StyledContainer = styled(Container)`
   }
 `;
 
-function Category({ categoryData }) {
+function Category({ categoryData, slug }) {
   const {
     name,
     colour: backgroundColor,
@@ -31,6 +33,8 @@ function Category({ categoryData }) {
     shows,
   } = categoryData || {};
 
+
+
   const backgroundImage = images?.squareLarge?.url;
 
   if (isEmpty(categoryData)) {
@@ -38,16 +42,30 @@ function Category({ categoryData }) {
     return null;
   }
 
+ 
   return (
-    <Page withNav backgroundImage={backgroundImage} backgroundColor={backgroundColor}>
+    <Page
+      withNav
+      backgroundImage={backgroundImage}
+      backgroundColor={backgroundColor}
+    >
       <StyledContainer>
         <div>
           <Head>
             <title>{`${name} Podcasts | ${LISTNR_META.brandName}`}</title>
-            <meta name="title" content={`${name} Podcasts | ${LISTNR_META.brandName}`} />
+            <meta
+              name="title"
+              content={`${name} Podcasts | ${LISTNR_META.brandName}`}
+            />
             <meta name="description" content={`Listnr - ${name} Podcasts.`} />
           </Head>
-          <CategoriesContainer shows={shows} name={name} description={description} />
+         
+          <CategoriesContainer
+            shows={shows}
+            name={name}
+            slug={slug}
+            description={description}
+          />
         </div>
         <Footer />
       </StyledContainer>
@@ -55,11 +73,16 @@ function Category({ categoryData }) {
   );
 }
 
-Category.getInitialProps = async ({ query: { slug } }, order = '') => {
-  const categoryContents = get(await getCategories([slug.toLowerCase()], order), 'categories', null);
+Category.getInitialProps = async ({ query: { slug, order = '' } }) => {
+  const categoryContents = get(
+    await getCategories([slug.toLowerCase()], order),
+    'categories',
+    null
+  );
   const categoryData = categoryContents[0];
   return {
     categoryData,
+    slug
   };
 };
 
@@ -72,15 +95,17 @@ Category.propTypes = {
     images: PropTypes.shape({
       backgroundLarge: PropTypes.shape({ url: PropTypes.string }),
     }),
-    shows: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string,
-      slug: PropTypes.string,
-      name: PropTypes.string,
-      description: PropTypes.string,
-      images: PropTypes.shape({
-        squareLarge: PropTypes.shape({ url: PropTypes.string }),
-      }),
-    })),
+    shows: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        slug: PropTypes.string,
+        name: PropTypes.string,
+        description: PropTypes.string,
+        images: PropTypes.shape({
+          squareLarge: PropTypes.shape({ url: PropTypes.string }),
+        }),
+      })
+    ),
   }),
 };
 
@@ -89,4 +114,3 @@ Category.defaultProps = {
 };
 
 export default Category;
-

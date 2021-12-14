@@ -21,6 +21,10 @@ function CategoryShows({ shows, description }) {
             <CategoryCard item={item} />
           </StyleItem>
         ))}
+        <StyleItem></StyleItem>
+        <StyleItem></StyleItem>
+        <StyleItem></StyleItem>
+        <StyleItem></StyleItem>
         <StyledBox>
           {description && (
             <TextWrapper>
