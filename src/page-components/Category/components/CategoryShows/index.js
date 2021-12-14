@@ -2,15 +2,24 @@ import { Flex } from '@rebass/grid';
 import Paragraph from 'shared-components/Typography/Paragraph';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyledBox, StyledCategoryShows, TextWrapper } from './styled';
+import {
+  StyledBox,
+  StyledCategoryShows,
+  TextWrapper,
+  StyleItem,
+} from './styled';
 import CategoryCard from '../CategoryCard';
+import Header from 'shared-components/Typography/Header';
 
 function CategoryShows({ shows, description }) {
   return (
     <StyledCategoryShows>
-      <Flex justifyContent="space-between" alignItems="center" flexWrap="wrap">
+      <Header>{shows.length} Podcasts</Header>
+      <Flex alignItems="start" flexWrap="wrap">
         {shows.map((item) => (
-          <CategoryCard item={item} />
+          <StyleItem>
+            <CategoryCard item={item} />
+          </StyleItem>
         ))}
         <StyledBox>
           {description && (

@@ -1,10 +1,19 @@
 import React from 'react';
 
+import Paragraph from 'shared-components/Typography/Paragraph';
+
 function CategoryCard({ item }) {
   return (
-    <div className="cat-card" style={{ width: '320px' }}>
+    <div
+      className="cat-card"
+      style={{ width: '100%', marginTop: 20, marginBottom: 20 }}
+    >
       <div className="cat-picture">
-        <img className="cat-img" src={item.images.squareLarge.url}></img>
+        <img
+          className="cat-img"
+          src={item.images.squareLarge.url}
+          style={{ borderRadius: '10px', width: '100%' }}
+        ></img>
       </div>
       <h2
         className="cat-title"
@@ -18,7 +27,8 @@ function CategoryCard({ item }) {
       >
         {item.name}{' '}
       </h2>
-      <p
+
+      <Paragraph
         className="cat-desc"
         style={{
           overflow: 'hidden',
@@ -26,10 +36,12 @@ function CategoryCard({ item }) {
           display: '-webkit-box',
           '-webkit-line-clamp': '3',
           '-webkit-box-orient': 'vertical',
+          color: '#fff',
+          opacity: '0.7',
         }}
       >
         {item.description}
-      </p>
+      </Paragraph>
     </div>
   );
 }
