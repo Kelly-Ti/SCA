@@ -3,16 +3,20 @@ import Paragraph from 'shared-components/Typography/Paragraph';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyledBox, StyledCategoryShows, TextWrapper } from './styled';
+import CategoryCard from '../CategoryCard';
 
 function CategoryShows({ shows, description }) {
   return (
     <StyledCategoryShows>
       <Flex justifyContent="space-between" alignItems="center" flexWrap="wrap">
+        {shows.map((item) => (
+          <CategoryCard item={item} />
+        ))}
         <StyledBox>
           {description && (
-          <TextWrapper>
-            <Paragraph text={description} variant="l" transparent />
-          </TextWrapper>
+            <TextWrapper>
+              <Paragraph text={description} variant="l" transparent />
+            </TextWrapper>
           )}
         </StyledBox>
       </Flex>
@@ -21,15 +25,17 @@ function CategoryShows({ shows, description }) {
 }
 
 CategoryShows.propTypes = {
-  shows: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    description: PropTypes.string,
-    images: PropTypes.shape({
-      squareLarge: PropTypes.shape({
-        url: PropTypes.string,
+  shows: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      description: PropTypes.string,
+      images: PropTypes.shape({
+        squareLarge: PropTypes.shape({
+          url: PropTypes.string,
+        }),
       }),
-    }),
-  })),
+    })
+  ),
   description: PropTypes.string,
 };
 
