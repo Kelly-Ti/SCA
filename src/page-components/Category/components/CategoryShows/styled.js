@@ -24,6 +24,7 @@ export const StyledBox = styled(Box)`
     max-width: 800px;
   }
 `;
+
 export const TextWrapper = styled.div`
   margin-bottom: 12px;
 
