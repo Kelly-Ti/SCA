@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import spacing from 'src/styling/spacing';
-//button
 import SortButton from 'shared-components/SortButton';
-//use Router
 import { useRouter } from 'next/router';
 import CategoryShows from '../CategoryShows';
+import { SortButtonWapper } from './styled';
 
 const StyledCategoryContainer = styled(Flex)`
   position: relative;
@@ -26,14 +25,7 @@ const CategorySection = ({ shows, name, description, slug }) => {
         <Header as="h1" variant="xl" text={name} linesToShow={1} mb="m" />
       </Box>
 
-      {/* ****STYLYING OUT */}
-
-      <div
-        style={{
-          position: 'absolute',
-          right: 0,
-        }}
-      >
+      <SortButtonWapper>
         <SortButton
           options={[
             { key: 'asc', value: 'A-Z' },
@@ -42,7 +34,7 @@ const CategorySection = ({ shows, name, description, slug }) => {
           side="left"
           onOptionClick={onSelect}
         ></SortButton>
-      </div>
+      </SortButtonWapper>
 
       <CategoryShows shows={shows} description={description} />
     </StyledCategoryContainer>

@@ -8,6 +8,7 @@ function CategoryCard({ item }) {
       <CardImg src={item.images.squareLarge.url}></CardImg>
 
       <CardTitle
+        // truncate to 1 line
         style={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',
@@ -20,6 +21,7 @@ function CategoryCard({ item }) {
       </CardTitle>
 
       <Paragraph
+        // truncate to 3 line
         style={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',
